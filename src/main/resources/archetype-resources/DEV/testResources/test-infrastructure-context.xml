@@ -1,0 +1,228 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="utf-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/jee
+         http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+
+    <context:annotation-config />
+
+    <context:component-scan
+        base-package="com.softtek" />
+
+    <!-- BEGIN - Application (General) -->
+    <bean
+        id="appServices"
+        class="com.softtek.app.service.impl.AppServicesPOJOImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="appRepository"
+        class="com.softtek.app.repository.impl.AppRepositoryJPAImpl"
+        autowire-candidate="true" />
+    <!-- END - Application (General) -->
+
+    <!-- BEGIN - Audit trail -->
+    <bean
+        id="auditAspect"
+        class="com.softtek.audit.aspect.AuditAspect"
+        factory-method="aspectOf">
+        <property
+            name="auditServices"
+            ref="auditServices" />
+    </bean>
+
+    <bean
+        id="auditServices"
+        class="com.softtek.audit.service.impl.AuditServicesPOJOImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="auditRepository"
+        class="com.softtek.audit.repository.impl.AuditRepositoryJPAImpl"
+        autowire-candidate="true" />
+    <!-- END - Audit trail -->
+
+    <!-- BEGIN - Authentication -->
+    <bean
+        id="authenticationAspect"
+        class="com.softtek.authentication.aspect.AuthenticationAspect"
+        factory-method="aspectOf">
+        <property
+            name="genericNotificationForFailure"
+            value="${authentication.generic_notification_for_failure}" />
+    </bean>
+
+    <bean
+        id="authenticationServices"
+        class="com.softtek.authentication.service.impl.AuthenticationServicesPOJOImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="authenticationRules"
+        class="com.softtek.authentication.rule.AuthenticationRules"
+        autowire-candidate="true" />
+    <!-- END - Authentication -->
+
+    <!-- BEGIN - Authorization -->
+    <bean
+        id="authorizationAspect"
+        class="com.softtek.authorization.aspect.AuthorizationAspect"
+        factory-method="aspectOf">
+        <property
+            name="authorizationServices"
+            ref="authorizationServices" />
+        <property
+            name="authorizationHelper"
+            ref="authorizationHelper" />
+    </bean>
+
+    <bean
+        id="authorizationServices"
+        class="com.softtek.authorization.service.impl.AuthorizationServicesPOJOImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="authorizationRepository"
+        class="com.softtek.authorization.repository.impl.AuthorizationRepositoryJPAImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="authorizationHelper"
+        class="com.softtek.authorization.helper.AuthorizationHelper"
+        autowire-candidate="true" />
+
+    <bean
+        id="serviceEntriesCacheServices"
+        class="com.softtek.authorization.service.impl.ServiceEntriesCacheServicesPOJOImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="nonWorkingDaysCacheServices"
+        class="com.softtek.authorization.service.impl.NonWorkingDaysCacheServicesPOJOImpl"
+        autowire-candidate="true" />
+    <!-- END - Authorization -->
+
+    <!-- BEGIN - Cache -->
+    <bean
+        id="cacheServices"
+        class="com.softtek.cache.service.impl.CacheServicesOSCacheImpl"
+        autowire-candidate="true" />
+    <!-- END - Cache -->
+
+    <!-- BEGIN - Codec -->
+    <bean
+        id="codecHelper"
+        class="com.softtek.codec.helper.CodecHelper"
+        autowire-candidate="true" />
+    <!-- END - Codec -->
+
+    <!-- BEGIN - JQuery Grid -->
+    <bean
+        id="jqGridHelper"
+        class="com.softtek.jqgrid.helper.JQGridHelper"
+        autowire-candidate="true" />
+    <!-- END - JQuery Grid -->
+
+    <!-- BEGIN - Mail -->
+	
+    <bean
+        id="mailServices"
+        class="com.softtek.mail.service.impl.MailServicesSunImpl"
+        autowire-candidate="true">
+        <property
+            name="debug"
+            value="${mail_services.debug}" />
+        <property
+            name="charSet"
+            value="${mail_services.charSet}" />
+        <property
+            name="smtpUseSSL"
+            value="${mail_services.smtp_useSSL}" />
+        <property
+            name="smtpHost"
+            value="${mail_services.smtp_host}" />
+        <property
+            name="smtpPort"
+            value="${mail_services.smtp_port}" />
+        <property
+            name="smtpUsername"
+            value="${mail_services.smtp_username}" />
+        <property
+            name="smtpPassword"
+            value="${mail_services.smtp_password}" />
+        <property
+            name="smtpConnectionTimeout"
+            value="${mail_services.smtp_connectionTimeout}" />
+        <property
+            name="smtpTimeout"
+            value="${mail_services.smtp_timeout}" />
+        <property
+            name="smtpQuitWait"
+            value="${mail_services.smtp_quitWait}" />
+    </bean>
+    <!-- END - Mail -->
+
+    <!-- BEGIN - Menu -->
+    <bean
+        id="menuServices"
+        class="com.softtek.menu.service.impl.MenuServicesPOJOImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="menuRepository"
+        class="com.softtek.menu.repository.impl.MenuRepositoryJPAImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="menuHelper"
+        class="com.softtek.menu.helper.MenuHelper"
+        autowire-candidate="true" />
+    <!-- END - Menu -->
+
+    <!-- BEGIN - User -->
+    <bean
+        id="userServices"
+        class="com.softtek.user.service.impl.UserServicesPOJOImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="userRepository"
+        class="com.softtek.user.repository.impl.UserRepositoryJPAImpl"
+        autowire-candidate="true" />
+    <!-- END - User -->
+
+    <!-- BEGIN - XML -->
+    <bean
+        id="xmlHelper"
+        class="com.softtek.xml.helper.XMLHelper"
+        autowire-candidate="true" />
+    <!-- END - XML -->
+
+    <!-- BEGIN - Report -->
+    <bean
+        id="reportHelper"
+        class="com.softtek.report.helper.ReportHelper"
+        autowire-candidate="true" />
+    <!-- END - Report -->
+
+    <!-- BEGIN - Web service pre-processor aspect -->
+    <bean
+        id="webServicePreProcessorAspect"
+        class="com.softtek.ws.aspect.WebServicePreProcessorAspect"
+        factory-method="aspectOf">
+        <property
+            name="userServices"
+            ref="userServices" />
+    </bean>
+    <!-- END - Web service pre-processor aspect -->
+</beans>

@@ -1,0 +1,401 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+         http://www.springframework.org/schema/task
+         http://www.springframework.org/schema/task/spring-task-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+
+    <import resource="classpath*:/applicationContext-core.xml"/>
+    <import resource="classpath*:/applicationContext-catalog.xml"/>
+
+	<!-- BEGIN - General configuration -->
+	<bean id="lifecycleProcessor"
+		class="org.springframework.context.support.DefaultLifecycleProcessor">
+		<property name="timeoutPerShutdownPhase" value="10000" />
+	</bean>
+	<bean
+        id="reportHelper"
+        class="com.softtek.report.helper.ReportHelper"
+        autowire-candidate="true" />
+
+	<aop:aspectj-autoproxy />
+
+	<context:annotation-config />
+
+	<context:component-scan
+		base-package="mx.gob.ventanillaunica.www,com.softtek,axway.workFlow,axway.processManager" />
+
+
+	<!-- END - General configuration -->
+
+	<!-- BEGIN - Encryption configuration -->
+	<bean id="environmentVariablesConfiguration"
+		class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+		<property name="algorithm" value="PBEWithMD5AndDES" />
+		<property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD" />
+	</bean>
+
+	<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="config" ref="environmentVariablesConfiguration" />
+	</bean>
+
+	<bean id="propertyConfigurer"
+		class="org.jasypt.spring.properties.EncryptablePropertyPlaceholderConfigurer">
+		<constructor-arg ref="configurationEncryptor" />
+		<property name="locations">
+			<list>
+				<value>classpath*:*.properties</value>				
+				<value>classpath*:properties/*.properties</value>
+			</list>
+		</property>
+
+	</bean>
+	<!-- END - Encryption configuration -->
+	
+    <!-- BEGIN - Database configuration -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>        
+        <property name="url" value="jdbc:oracle:thin:@192.168.18.8:1521:vucdes1"/>        
+        <property name="username" value="VUCEM_APP_D03"/>
+        <property name="password" value="Dev03"/>        
+    </bean>
+
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" rollback-for="java.lang.Throwable"
+				propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="businessServicesPointcut"
+			expression="target(com.softtek.service.BaseSupportServices) 
+        AND execution(public * *(..)) AND !@annotation(com.softtek.transaction.annotation.DoNotParticipateInTransaction)" />
+		<aop:advisor advice-ref="transactionAdvice" pointcut-ref="businessServicesPointcut" />
+	</aop:config>
+
+
+
+	<!-- BEGIN - XDK Axway --> 
+	<bean id="xpmManager" class="com.axway.xpm.xdk.admin.XpmDKAdmManager"
+		init-method="openSession" destroy-method="closeSession">
+		<constructor-arg value="xpmsu" />
+		<constructor-arg value="xpmsu" />
+	</bean>
+	<!-- END - XDK Axway -->
+
+	<!-- BEGIN - JPA -->
+	<bean id="persistenceUnitManager"
+		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+		<property name="persistenceXmlLocations">
+			<list>
+				<value>classpath*:META-INF/persistenceTest.xml</value>
+			</list>
+		</property>
+		<property name="defaultDataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+	<bean id="jpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitManager" ref="persistenceUnitManager" />
+		<property name="jpaDialect" ref="jpaDialect" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	<!-- END - JPA -->
+<context:annotation-config />
+
+    <context:component-scan
+        base-package="com.softtek" />
+
+    <!-- BEGIN - Application (General) -->
+    <bean
+        id="appServices"
+        class="com.softtek.app.service.impl.AppServicesPOJOImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="appRepository"
+        class="com.softtek.app.repository.impl.AppRepositoryJPAImpl"
+        autowire-candidate="true" />
+    <!-- END - Application (General) -->
+
+    <!-- BEGIN - Audit trail -->
+    <bean
+        id="auditAspect"
+        class="com.softtek.audit.aspect.AuditAspect"
+        factory-method="aspectOf">
+        <property
+            name="auditServices"
+            ref="auditServices" />
+    </bean>
+
+    <bean
+        id="auditServices"
+        class="com.softtek.audit.service.impl.AuditServicesPOJOImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="auditRepository"
+        class="com.softtek.audit.repository.impl.AuditRepositoryJPAImpl"
+        autowire-candidate="true" />
+    <!-- END - Audit trail -->
+
+    <!-- BEGIN - Authentication -->
+    <bean
+        id="authenticationServices"
+        class="com.softtek.authentication.service.impl.AuthenticationServicesPOJOImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="authenticationRules"
+        class="com.softtek.authentication.rule.AuthenticationRules"
+        autowire-candidate="true" />
+    <!-- END - Authentication -->
+
+    <!-- BEGIN - Authorization -->
+    <bean
+        id="authorizationAspect"
+        class="com.softtek.authorization.aspect.AuthorizationAspect"
+        factory-method="aspectOf">
+        <property
+            name="authorizationServices"
+            ref="authorizationServices" />
+        <property
+            name="authorizationHelper"
+            ref="authorizationHelper" />
+    </bean>
+
+    <bean
+        id="authorizationServices"
+        class="com.softtek.authorization.service.impl.AuthorizationServicesPOJOImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="authorizationRepository"
+        class="com.softtek.authorization.repository.impl.AuthorizationRepositoryJPAImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="authorizationHelper"
+        class="com.softtek.authorization.helper.AuthorizationHelper"
+        autowire-candidate="true" />
+
+    <bean
+        id="serviceEntriesCacheServices"
+        class="com.softtek.authorization.service.impl.ServiceEntriesCacheServicesPOJOImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="nonWorkingDaysCacheServices"
+        class="com.softtek.authorization.service.impl.NonWorkingDaysCacheServicesPOJOImpl"
+        autowire-candidate="true" />
+    <!-- END - Authorization -->
+
+    <!-- BEGIN - Cache -->
+    <bean
+        id="cacheServices"
+        class="com.softtek.cache.service.impl.CacheServicesOSCacheImpl"
+        autowire-candidate="true" />
+    <!-- END - Cache -->
+
+    <!-- BEGIN - Codec -->
+    <bean
+        id="codecHelper"
+        class="com.softtek.codec.helper.CodecHelper"
+        autowire-candidate="true" />
+    <!-- END - Codec -->
+
+    <!-- BEGIN - JQuery Grid -->
+    <bean
+        id="jqGridHelper"
+        class="com.softtek.jqgrid.helper.JQGridHelper"
+        autowire-candidate="true" />
+    <!-- END - JQuery Grid -->
+
+    
+    <!-- BEGIN - Menu -->
+    <bean
+        id="menuServices"
+        class="com.softtek.menu.service.impl.MenuServicesPOJOImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="menuRepository"
+        class="com.softtek.menu.repository.impl.MenuRepositoryJPAImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="menuHelper"
+        class="com.softtek.menu.helper.MenuHelper"
+        autowire-candidate="true" />
+    <!-- END - Menu -->
+
+    <!-- BEGIN - User -->
+    <bean
+        id="userServices"
+        class="com.softtek.user.service.impl.UserServicesPOJOImpl"
+        autowire-candidate="true" />
+
+    <bean
+        id="userRepository"
+        class="com.softtek.user.repository.impl.UserRepositoryJPAImpl"
+        autowire-candidate="true" />
+    <!-- END - User -->
+
+    <!-- BEGIN - XML -->
+    <bean
+        id="xmlHelper"
+        class="com.softtek.xml.helper.XMLHelper"
+        autowire-candidate="true" />
+    <!-- END - XML -->
+    
+    <bean
+        id="validationHelper"
+        class="com.softtek.validation.helper.ValidationHelper"
+        autowire-candidate="true" />
+    
+	<!-- Patterns Eliminar en el despliegue -->
+        <bean id="report" class="com.softtek.report.model.MultiFormatReport" >            
+            <property name ="jdbcDataSource" ref ="dataSource" />
+        </bean>
+      
+
+<bean abstract="true" id="SolicitudInfo" class="mx.gob.ventanillaunica.www.common.constant.SolicitudInfo">
+        <property name="evaluarSolicitudURL">
+            <util:constant static-field="mx.gob.ventanillaunica.www.common.constant.ControllerUrlBindingConstantsCommon.EVALUAR_SOLICITUD_URL_BINDING" />
+        </property>
+        <property name="confirmarNotificacionRequerimientoURL">
+            <util:constant static-field="mx.gob.ventanillaunica.www.common.constant.ControllerUrlBindingConstantsCommon.CONFIRMAR_NOTIFICACION_URL_BINDING" />
+        </property>
+        <property name="atenderRequerimientoURL">
+            <util:constant static-field="mx.gob.ventanillaunica.www.common.constant.ControllerUrlBindingConstantsCommon.ATENDER_REQUERIMIENTO_URL_BINDING" />
+        </property>
+        <property name="registrarOpinionURL">
+            <util:constant static-field="mx.gob.ventanillaunica.www.common.constant.ControllerUrlBindingConstantsCommon.REGISTRO_OPINION_URL_BINDING" />
+        </property>
+        <property name="confirmarNotificacionResolucionURL">
+            <util:constant static-field="mx.gob.ventanillaunica.www.common.constant.ControllerUrlBindingConstantsCommon.CONFIRMAR_NOTIFICACION_URL_BINDING" />
+        </property>
+        <property name="confirmarNotificacionEstradosURL">
+            <util:constant static-field="mx.gob.ventanillaunica.www.common.constant.ControllerUrlBindingConstantsCommon.CONFIRMAR_NOTIFICACION_URL_BINDING" />
+        </property>
+        <property name="autorizarDictamenURL">
+            <util:constant static-field="mx.gob.ventanillaunica.www.common.constant.ControllerUrlBindingConstantsCommon.AUTORIZAR_DICTAMEN_URL_BINDING" />
+        </property>
+        <property name="verificarDictamenURL">
+            <util:constant static-field="mx.gob.ventanillaunica.www.common.constant.ControllerUrlBindingConstantsCommon.VERIFICAR_DICTAMEN_URL_BING" />
+        </property>
+        <property name="autorizarRequerimientoURL">
+            <util:constant static-field="mx.gob.ventanillaunica.www.common.constant.ControllerUrlBindingConstantsCommon.AUTORIZAR_REQUERIMIENTO_URL_BINDING" />
+        </property>
+        <property name="verificarRequerimientoURL">
+            <util:constant static-field="mx.gob.ventanillaunica.www.common.constant.ControllerUrlBindingConstantsCommon.VERIFICAR_REQUERIMIENTO_URL_BINDING" />
+        </property>
+        <property name="confirmarNotificacionEstradosRequerimientoURL">
+            <util:constant static-field="mx.gob.ventanillaunica.www.common.constant.ControllerUrlBindingConstantsCommon.CONFIRMAR_NOTIFICACION_URL_BINDING" />
+        </property>
+        <property name="mensaje" value="InicioTramite" />
+        <property name="requiereDocumentos" value="true" />
+        <property name="tareaExtraURL" value="" />
+        <property name="solicitudModificarURL" value="" />
+        <property name="acronimoDependencia" value="" />
+        <property name="servicio" value="" />
+        <property name="idTramite" value="" />
+        <property name="className" value="" />
+        <property name="discriminatorValue" value="" />
+
+        <property name="idTramiteConsulta" value="" />
+        <property name="consultaURL" value="" />
+        <property name="tipoDocumentoOrigen" value="DEFAULT"/>
+    </bean>
+
+    <bean id="solicitudPatron" parent="SolicitudInfo" >
+        <property name="className" value="mx.gob.ventanillaunica.www.common.model.registroSolicitud.SolicitudPatron" />
+        <property name="idTramite" >
+            <util:constant static-field="mx.gob.ventanillaunica.www.common.constant.DiscriminadorTipoTramiteConstants.SOLICITUD_PATRON" />
+        </property>
+        <property name="servicio" value="Servicio_AGA_ProcesoA_01_1" />
+        <property name="acronimoDependencia" value="AGA" />
+        <property name="solicitudModificarURL">
+            <util:constant static-field="com.softtek.patterns.solicitud.a.constant.RegistroSolicitudTipoAUrlBindingConstants.REGISTRO_SOLICITUD_URL_BINDING" />
+        </property>
+        <property name="parametrosURL" value="?mostrar=&amp;solicitud.idSolicitud=" />
+    </bean>
+
+    <util:map id="commonSolicitudInfoMapBean" map-class="java.util.HashMap">
+        <entry>
+    	    <key>
+	        	<util:constant static-field="mx.gob.ventanillaunica.www.common.constant.DiscriminadorTipoTramiteConstants.SOLICITUD_PATRON" />
+        	</key>
+            <ref bean="solicitudPatron"/>
+       </entry>
+    </util:map>
+	<bean id="idcRepository"
+		class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
+		<property name="serviceInterface" value="com.softtek.idc.repository.IDCRepository" />
+		<property name="wsdlDocumentUrl" value="${idc.epr}" />
+		<property name="namespaceUri" value="http://www.sat.gob.mx/IdCInterno/wsdl" />
+		<property name="serviceName" value="IdCInterno" />
+		<property name="portName" value="IdCInternoSOAP" />
+	</bean>
+	
+	<bean id="renapoProxyRepository" class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
+	  	<property name="serviceInterface" value="com.softtek.renapo.repository.RenapoProxyRepository" />
+	    <property name="wsdlDocumentUrl" value="${renapo.proxy.wsdl}" />
+	    <property name="namespaceUri" value="http://www.ventanillaunica.gob.mx/renapoService/wsdl" />
+	    <property name="serviceName" value="renapoService" />
+	    <property name="portName" value="renapoPortService" />
+	  </bean> 
+  
+	  <!-- Definicion del Bean para el cliente que consume el servicio de digitalizacion de integradores -->
+  <!--<bean id="digitalizacionClientRepository" class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean"> -->
+  <bean id="digitalizacionClientRepository" class="com.softtek.digitalizacion.proxy.factory.DigitalizacionJaxWsPortProxyFactoryBean">
+	<property name="serviceInterface" value="com.softtek.digitalizacion.repository.DigitalizacionClientRepository" />
+	<property name="wsdlDocumentUrl" value="${digitalizacion.epr}" />
+	<property name="namespaceUri" value="http://tempuri.org/" />
+	<property name="serviceName" value="GestorDocumentos" />
+	<property name="portName" value="BasicHttpBinding_IGestorDocumentos" />
+	<property name="timeout" value="${digitalizacion.timeout}"/>
+  </bean>
+
+<bean id="padronRepository" class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">  
+  		<property name="serviceInterface" value="com.softtek.padron.repository.PadronProxyRepository" />
+    	<property  name="wsdlDocumentUrl" value="https://www2.ventanillaunica.gob.mx/proxyConsultaPadron/consultaPadron?WSDL" />
+    	<property name="namespaceUri" value="http://www.ventanillaunica.gob.mx/padronService/wsdl" />
+    	<property name="serviceName" value="consultaPadron" />
+    	<property name="portName" value="consultaPadronPortService" />
+  	</bean>  
+  <!-- Definicion del mapa para los contextos -->
+  <util:map id="configModulesMap" map-class="java.util.HashMap">
+	<entry key="0" value="ventanilla"></entry>
+	<entry key="1" value="pedimentos"></entry>
+  </util:map>  
+        
+</beans>

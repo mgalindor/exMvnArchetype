@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" name="vucem-archetype"
+    xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+
+  <requiredProperties>
+    <requiredProperty key="dependencia">
+      <defaultValue>dependencia</defaultValue>
+    </requiredProperty>
+	<requiredProperty key="tramite">
+      <defaultValue>tramite</defaultValue>
+    </requiredProperty>
+	<requiredProperty key="classTramite">
+      <defaultValue>Nuevo</defaultValue>
+    </requiredProperty>
+  </requiredProperties>
+  
+  <fileSets>
+    <!-- Src--> 
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>src</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+   <!--Fin Src-->
+   
+   <!-- Persistence-->
+   <fileSet filtered="true" encoding="UTF-8">
+      <directory>support/META-INF</directory>
+      <includes>
+        <include>**/*.xml</include>
+      </includes>
+    </fileSet> 
+	<!-- Perfiles-->
+	
+	<fileSet filtered="true" encoding="UTF-8">
+      <directory>QA-MTY</directory>
+      <includes>
+        <include>**/*.xml</include>
+		 <include>**/*.properties</include>
+      </includes>
+    </fileSet>
+	<fileSet filtered="true" encoding="UTF-8">
+      <directory>DEV</directory>
+      <includes>
+        <include>**/*.xml</include>
+		 <include>**/*.properties</include>
+      </includes>
+    </fileSet>
+	<fileSet filtered="true" encoding="UTF-8">
+      <directory>PROD</directory>
+      <includes>
+        <include>**/*.xml</include>
+		 <include>**/*.properties</include>
+      </includes>
+    </fileSet>
+	<fileSet filtered="true" encoding="UTF-8">
+      <directory>TEST-MEX</directory>
+      <includes>
+        <include>**/*.xml</include>
+		 <include>**/*.properties</include>
+      </includes>
+    </fileSet>
+	<!--Fin  Perfiles-->
+	
+
+	<!-- Web Content-->
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>WebContent/WEB-INF</directory>
+      <includes>
+        <include>**/*.xml</include>
+		<include>**/*.jsp</include>
+      </includes>
+    </fileSet>
+	<fileSet filtered="true" encoding="UTF-8">
+      <directory>WebContent/js</directory>
+      <includes>
+		<include>**/*.js</include>
+      </includes>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+      <directory>WebContent/META-INF</directory>
+      <includes>
+        <include>**/*.MF</include>
+      </includes>
+    </fileSet>
+ <!--Fin  Web Content-->
+ 
+ <!-- Tests-->
+	<fileSet filtered="true" encoding="UTF-8">
+      <directory>test</directory>
+      <includes>
+         <include>**/*.MF</include>
+		 <include>**/*.xml</include>
+		 <include>**/*.java</include>
+      </includes>
+    </fileSet>
+ <!--Fin Tests-->
+ 
+  </fileSets>
+</archetype-descriptor>

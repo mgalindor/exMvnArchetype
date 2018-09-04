@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="VUCEMPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <jta-data-source>VUCEMDataSource</jta-data-source>
+    <non-jta-data-source>VUCEMDataSource</non-jta-data-source>
+<class>com.softtek.audit.model.AuditEntry</class>
+<class>com.softtek.authorization.model.ServiceEntry</class>
+<class>com.softtek.authorization.model.ServiceGroup</class>
+<class>com.softtek.idc.model.Contribuyente</class>
+<class>com.softtek.patterns.report.model.ParametrosReporteSolicitudPersistencia</class>
+<class>com.softtek.patterns.report.model.PlantillaTramite</class>
+<class>com.softtek.patterns.report.model.TextoLibre</class>
+<class>com.softtek.patterns.solicitud.a.model.SolicitudTipoA</class>
+<class>com.softtek.patterns.solicitud.a.model.SolicitudTipoMod</class>
+<class>com.softtek.patterns.solicitud.a.model.SolicitudTipoProrroga</class>
+<class>com.softtek.user.model.Language</class>
+<class>com.softtek.user.model.Role</class>
+<class>com.softtek.user.model.UserState</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.ActividadEconomica</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Aduana</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Banco</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.BaseTratadoBloque</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.BitacoraCarga</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Bloque</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.BloqueTratadoAcuerdo</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Calendario</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Capitulo</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.CatalogoD</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.CatalogoH</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.CatalogoTR</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.ClasificacionCafe</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.ClasificacionRegimen</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.ClasificacionResiduo</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.ClasificacionResiduo</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.ClasificacionToxicologicaTipoTramite</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.ClasificacionToxicologicaTipoTramite</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Colonia</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.CriterioDictaminacion</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Declaracion</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.DeclaracionTramite</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.DeclaracionTramiteEnum</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.DelegacionMunicipio</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.DelegacionSAT</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Dependencia</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.DescripcionProducto</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.DiaNoLaborable</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.DictamenTramite</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.DocumentoTramite</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.DocumentoTramiteEnum</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Domicilio</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.EmpresaCertificada</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.EmpresaGobierno</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.EntidadFederativa</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Enumeracion</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.EnumeracionD</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.EnumeracionH</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.EquivalenciaAelc</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.EsquemaRegla8</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.EsquemaRegla8</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.FundamentoTipoTramite</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.IdentificadorPrevalidador</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.JustificacionTipoTramite</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Lenguaje</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.LeyendaCertificado</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.LeyendaTexto</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.LeyendaDocumentoOficial</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Localidad</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.LugarInspeccion</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.LugarInspeccion</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.ModuloAdministrativo</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Moneda</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.MotivoTipoTramite</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.NivelTipoTramiteRol</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.ObservacionTipoTramite</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.OficinaInspeccionSanidadAgropecuaria</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Pais</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.PaisTratadoBloque</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Parametro</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.ParametroVigencia</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.ParametroVigenciaH</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Partida</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.PlazoMaximoTramite</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Producto</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.PuntoVerificacion</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.RecintoFiscalizado</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Regimen</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.RestriccionTipoTramite</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.RolTipoTramite</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.ServiciosImmex</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.SubPartida</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.Tarifa</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.TipoAduana</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.TipoDictamen</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.TipoDocumento</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.TipoEmpresaRECIF</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.TipoProductoTipoTramite</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.TipoRequisito</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.TipoTasa</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.TipoTramite</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.TipoTramiteUnidadAdmin</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.TipoTramiteUnidadAdminAreaOpinante</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.TipoTramiteUnidadAdminResponsable</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.TratadoAcuerdo</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.TratamientoEspecial</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.UnidadAdminAduana</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.UnidadAdministrativa</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.UnidadAdministrativaAduana</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.UnidadAdministrativaRL</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.UnidadAdministrativaUA</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.UnidadAdministrativaVecina</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.UnidadMedida</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Accionista</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Adquiriente</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Adquiriente</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.AduanaSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.AduanaSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.AgenteAduanal</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.AgenteAduanal</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Area</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Area</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Arrendatario</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Arrendatario</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.AtributoMercancia</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.AtributoMercancia</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.AtributoSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.AtributoSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Aviso</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Aviso</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.BitacoraTramite</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Bodega</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Bodega</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.CapturistaPrivado</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.CatAreaOpinante</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.CertificadoUtilizado</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.CondicionesUso</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.CondicionesUsoPersona</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Contacto</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.ContactoCircunscripcion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.ComponenteComun</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DatosGeneralesDictamen</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DetalleDictamen</class>
+<class>mx.gob.ventanillaunica.www.common.catalogs.model.UsoMercanciaTipoTramite</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DeclaracionSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Dictamen</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DictamenExterno</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DictamenInterno</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DictamenSecundario</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DisparadorTramite</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Documento</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Documento</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DocumentoOficial</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DocumentoOficial</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DocumentoOficialResolucion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DocumentoOficialResolucion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DocumentoOpinionVisita</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DocumentoOpinionVisita</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DocumentoPersona</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DocumentoPersona</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DocumentoRequerimiento</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DocumentoRequerimiento</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DocumentoSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DocumentoSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DomicilioExterno</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DomicilioExterno</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DomicilioSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.DomicilioSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Empresa</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.EmpresaRecif</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Envio</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Envio</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Establecimiento</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Exposicion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Expositor</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Extranjero</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.ExtranjeroPersonaMoral</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Firma</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Firma</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaDictamen</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaDictamen</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaDoctoOficial</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaDoctoOficial</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaNotificacion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaNotificacion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaOpinion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaOpinion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaPersona</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaPersona</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaRequerimiento</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaRequerimiento</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaResolucion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaResolucion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FirmaSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.FundamentoTipoTramiteDictamen</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.InformacionUsuario_1</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.InformacionUsuario</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.InformeSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.InfRoleDependencia</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.InfRoleUnidadAdmin</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.InfRoleUsuTipoTramite</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.JustificacionTipoTramiteDictamen</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Mercancia</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.MercanciaSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.MotivoTipoTramiteDictamen</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Muestra</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.NoContribuyente</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Notificacion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.NotificacionRequerimiento</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.NotificacionResolucion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Observacion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.ObservacionDictamen</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.ObservacionTerceroDictamen</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Opinion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.OpinionDetalle</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.OperacionResolucion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.PaisSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.PermisoSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Persona</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.PersonaAduanalSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.PersonaAutorizadaParaNotificaciones</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.PersonaDetalle</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.PersonaFisica</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.PersonaInterna</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.PersonaMoral</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.PersonaOirRecibirNotificaciones</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.PlazoOperacion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Prevalidador</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Mandatario</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Dependiente</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.AgenteAduanalSustituto</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.RelacionApoderadoAduanal</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.PersonaSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Planta</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.PreferenciaUsuario</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.ProgramaEcexAltex</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Proveedor</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.PruebaConectividad</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Recinto</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.RelacionPersonas</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.ReplicaVentanillaUnicaTotalEjercido</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.RepresentanteLegalPorCapturistaGubernamental</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Requerimiento</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.RequerimientoComplementario</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Resolucion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.ResolucionSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.RestriccionTipoTramiteDictamen</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.RfcIA</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Secuencia</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.SocioAccionista</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Solicitante</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Solicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.SolicitudDatosGenerales</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.SolicitudRequerimiento</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Suplencia</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.TipoDocumentoFraccion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.TipoDocumentoFraccion</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.TipoDocumentoFraccionEsquema</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.TipoDocumentoMecanismo</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.TipoDocumentoMecanismo</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.TipoDocumentoPrograma</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.TipoDocumentoPrograma</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.TipoDocumentoOficial</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.TipoRFC</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Tramite</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Transporte</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Transportista</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.UbicacionMercancia</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.UnidadAdministrativaSolicitud</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Vehiculo</class>
+<class>mx.gob.ventanillaunica.www.common.domain.model.Visita</class>
+<class>mx.gob.ventanillaunica.www.common.processmanager.model.Reasignacion</class>
+<class>mx.gob.ventanillaunica.www.common.processmanager.model.Reasignacion</class>
+    <class>mx.gob.ventanillaunica.www.common.domain.model.NormaAplicable</class>
+    <class>mx.gob.ventanillaunica.www.common.domain.model.TipoDocumentoCertificacion</class>
+    <class>mx.gob.ventanillaunica.www.common.domain.model.MercanciaDictamen</class>
+	<class>mx.gob.ventanillaunica.www.common.catalogs.model.CombinacionSagarpa</class>
+
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <shared-cache-mode>ALL</shared-cache-mode>
+    <properties>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+      <property name="hibernate.archive.autodetection" value="class"/>
+      <property name="hibernate.order_inserts" value="true"/>
+      <property name="hibernate.order_updates" value="true"/>
+      <property name="hibernate.jdbc.use_get_generated_keys" value="true"/>
+      <property name="hibernate.transaction.flush_before_completion" value="true"/>
+      <property name="hibernate.transaction.auto_close_session" value="true"/>
+      <property name="hibernate.connection.release_mode" value="after_transaction"/>
+      <property name="hibernate.bytecode.use_reflection_optimizer" value="true"/>
+      <property name="hibernate.query.factory_class" value="org.hibernate.hql.ast.ASTQueryTranslatorFactory"/>
+      <property name="hibernate.connection.charSet" value="UTF-8"/>
+      <!-- BEGIN - Cache settings -->
+      <property name="hibernate.cache.use_second_level_cache" value="true"/>
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.OSCacheProvider"/>
+      <property name="hibernate.cache.use_minimal_puts" value="false"/>
+      <property name="hibernate.cache.use_query_cache" value="true"/>
+      <property name="hibernate.cache.region_prefix" value="HibernateCacheId"/>
+      <property name="hibernate.cache.use_structured_entries" value="true"/>
+      <!-- END - Cache settings -->
+      <!-- BEGIN - Properties to be used ONLY during development -->
+      <property name="hibernate.show_sql" value="false"/>
+      <property name="hibernate.format_sql" value="false"/>
+      <property name="hibernate.generate_statistics" value="false"/>
+      <property name="hibernate.use_sql_comments" value="false"/>
+      <!-- END - Properties to be used ONLY during development -->
+    </properties>
+  </persistence-unit>
+</persistence>
